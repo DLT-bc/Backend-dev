@@ -9,8 +9,7 @@ const authRouter = Router();
 
 authRouter.post(
   '/register',
-  validateRequest(RegisterUserRequest),
-  passportAuthMiddleware(JwtTypes.ACCESS),
+  // validateRequest(RegisterUserRequest),
   wrap(async (req, res) => {
     const user = await AuthController.registerUser(req.body);
     res.status(201).json(user);
@@ -26,13 +25,13 @@ authRouter.post(
   }),
 );
 
-authRouter.get(
-  '/refresh',
-  passportAuthMiddleware(JwtTypes.REFRESH),
-  wrap(async (req, res) => {
-    const tokens = await AuthController.refreshTokens(req.user);
-    return res.json(tokens);
-  }),
-);
+// authRouter.get(
+//   '/refresh',
+//   passportAuthMiddleware(JwtTypes.REFRESH),
+//   wrap(async (req, res) => {
+//     const tokens = await AuthController.refreshTokens(req.user);
+//     return res.json(tokens);
+//   }),
+// );
 
 export { authRouter };

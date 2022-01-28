@@ -1,6 +1,15 @@
-async function registerUser() {
+import { User } from '../models';
+
+async function registerUser({ email, login, password }) {
   // your code
-  return '';
+  console.log('', email, login, password);
+  const user = await User.create({
+    email,
+    login,
+    password,
+  });
+
+  return user.publish('dates');
 }
 
 async function loginUser() {
