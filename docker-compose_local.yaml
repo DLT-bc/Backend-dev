@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  postgres:
+    restart: always
+    image: postgres:12-alpine
+    container_name: "brandfolder_postgres"
+    env_file: ".env"
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+volumes:
+  pgdata:
