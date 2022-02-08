@@ -1,12 +1,20 @@
+import { BadRequest } from 'http-errors';
 import { User } from '../models';
+import { ErrorMessages } from '../constants';
+import { hashPassword } from '../utils';
 
 async function registerUser({ email, login, password }) {
-  // your code
-  console.log('', email, login, password);
+  const existing = await User.findOne({
+    where: {
+      email,
+    },
+  });
+  if (existing) throw new BadRequest(ErrorMessages.record_already_exists);
+
   const user = await User.create({
     email,
     login,
-    password,
+    password: hashPassword(password),
   });
 
   return user.publish('dates');

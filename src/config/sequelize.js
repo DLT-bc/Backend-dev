@@ -7,7 +7,3 @@ export const dbConfig = {
   dialect: 'postgres',
   logging: false,
 };
-
-// sequelize cli required environments
-export const production = dbConfig;
-export const development = dbConfig;

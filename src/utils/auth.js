@@ -33,7 +33,7 @@ export function verifyToken(token, secretKey) {
 }
 
 export function hashPassword(password) {
-  return bcrypt.hash(password, 8);
+  return bcrypt.hashSync(password, 8);
 }
 
 export function comparePasswords(userPassword, hashedPassword) {
