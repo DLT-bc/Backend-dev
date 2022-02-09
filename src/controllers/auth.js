@@ -1,7 +1,7 @@
 import { BadRequest } from 'http-errors';
 import { User } from '../models';
 import { ErrorMessages } from '../constants';
-import { hashPassword } from '../utils';
+import { comparePasswords, generateAccessToken, hashPassword } from '../utils';
 
 async function registerUser({ email, login, password }) {
   const existing = await User.findOne({
@@ -20,9 +20,14 @@ async function registerUser({ email, login, password }) {
   return user.publish('dates');
 }
 
-async function loginUser() {
-  // your code
-  return '';
+async function loginUser({ email, password }) {
+  const existingUser = await User.findOneOrFail({ email });
+
+  if (!await comparePasswords(password, existingUser.password)) {
+    throw new BadRequest(ErrorMessages.auth_invalid_login_password);
+  }
+
+  return generateAccessToken(existingUser.id);
 }
 
 async function refreshTokens() {

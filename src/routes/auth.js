@@ -21,7 +21,7 @@ authRouter.post(
   validateRequest(LoginUserRequest),
   wrap(async (req, res) => {
     const tokens = await AuthController.loginUser(req.body);
-    res.json(tokens);
+    res.json({ tokens });
   }),
 );
 
