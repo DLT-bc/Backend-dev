@@ -42,6 +42,12 @@ export default class User extends BaseModel {
 
   // eslint-disable-next-line no-unused-vars
   static associate(models) {
+    User.hasOne(models.stats, {
+      as: 'stats',
+      foreignKey: {
+        name: 'userId',
+      },
+    });
     // define association here
   }
 
