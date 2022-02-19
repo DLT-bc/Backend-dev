@@ -32,6 +32,13 @@ async function loginUser({ email, password }) {
   return [generateAccessToken(existingUser.id), generateRefreshToken(existingUser.id)];
 }
 
+async function getMyStats({ id }) {
+  const user = await User.findOneOrFail({
+    id,
+  });
+  return user.publish();
+}
+
 async function refreshTokens() {
   //
   return '';
@@ -41,4 +48,5 @@ export {
   registerUser,
   refreshTokens,
   loginUser,
+  getMyStats,
 };

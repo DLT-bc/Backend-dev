@@ -25,4 +25,5 @@ export const ErrorMessages = {
   the_destination_folder_is_inside_the_source_folder: 'the_destination_folder_is_inside_the_source_folder',
   insufficient_permission: 'insufficient_permission',
   invalid_tag_max_length: 'invalid_tag_max_length',
+  users_is_undefined: 'users_is_undefined',
 };

@@ -4,6 +4,7 @@ import cors from 'cors';
 import { ErrorHandler } from './middlewares';
 import {
   authRouter,
+  usersRouter,
 } from './routes';
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(morgan('tiny'));
 
 // app routing
 app.use('/api/auth', authRouter);
+app.use('/api/users', usersRouter);
 
 // health check request
 app.get('/health', (req, res) => {

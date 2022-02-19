@@ -2,14 +2,15 @@ import { Router } from 'express';
 import { wrap } from '../utils';
 import { passportAuthMiddleware, validateRequest } from '../middlewares';
 import { RegisterUserRequest, LoginUserRequest } from '../requests';
-import { AuthController } from '../controllers';
+import { AuthController, UsersController } from '../controllers';
 import { JwtTypes } from '../constants';
+import { usersRouter } from './users';
 
 const authRouter = Router();
 
 authRouter.post(
   '/register',
-  // validateRequest(RegisterUserRequest),
+  validateRequest(RegisterUserRequest),
   wrap(async (req, res) => {
     const user = await AuthController.registerUser(req.body);
     res.status(201).json(user);
@@ -20,14 +21,23 @@ authRouter.post(
   '/login',
   validateRequest(LoginUserRequest),
   wrap(async (req, res) => {
-    const tokens = await AuthController.loginUser(req.body);
+    const [access_token, refresh_token] = await AuthController.loginUser(req.body);
     res.json({
-      access_token: tokens[0],
-      refresh_token: tokens[1],
+      access_token,
+      refresh_token,
     });
   }),
 );
 
+authRouter.get(
+  '/me',
+  passportAuthMiddleware(JwtTypes.ACCESS),
+  wrap(async (req, res) => {
+    console.log(req.user);
+    const user = await AuthController.getMyStats(req.user);
+    res.status(201).json(user);
+  }),
+);
 // authRouter.get(
 //   '/refresh',
 //   passportAuthMiddleware(JwtTypes.REFRESH),
