@@ -1,5 +1,5 @@
 import { BadRequest } from 'http-errors';
-import { User } from '../models';
+import { Stats, User } from '../models';
 import { ErrorMessages } from '../constants';
 import {
   comparePasswords, generateAccessToken, generateRefreshToken, hashPassword,
@@ -19,6 +19,20 @@ async function registerUser({ email, login, password }) {
     password: hashPassword(password),
   });
 
+  await Stats.create({
+    userId: user.id,
+    cryptocurrency: 0,
+    dollars: 0,
+    popularity: 0,
+    mainPcLevel: 1,
+    serverLevel: 0,
+    minerLevel: 0,
+    instructionsLevel: 0,
+    passiveLevel: 0,
+    activeLevel: 0,
+
+  });
+
   return user.publish('dates');
 }
 
@@ -33,8 +47,8 @@ async function loginUser({ email, password }) {
 }
 
 async function getMyStats({ id }) {
-  const user = await User.findOneOrFail({
-    id,
+  const user = await Stats.findOneOrFail({
+    userId: id,
   });
   return user.publish();
 }
