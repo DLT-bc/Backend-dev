@@ -10,7 +10,7 @@ export function generateAccessToken(id) {
     type: JwtTypes.ACCESS,
   },
   config.JWT_SECRET_KEY, {
-    expiresIn: '10d',
+    expiresIn: '1d',
   });
 }
 

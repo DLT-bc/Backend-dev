@@ -1,8 +1,9 @@
 import { BadRequest } from 'http-errors';
 import { Stats, User } from '../models';
 import { ErrorMessages } from '../constants';
+import { config } from '../config';
 import {
-  comparePasswords, generateAccessToken, generateRefreshToken, hashPassword,
+  comparePasswords, generateAccessToken, generateRefreshToken, hashPassword, verifyToken,
 } from '../utils';
 
 async function registerUser({ email, login, password }) {
@@ -53,9 +54,9 @@ async function getMyStats({ id }) {
   return user.publish();
 }
 
-async function refreshTokens() {
-  //
-  return '';
+async function refreshTokens({ id }) {
+  const user = await User.findOneOrFail({ id });
+  return [generateAccessToken(user.id), generateRefreshToken(user.id)];
 }
 
 export {

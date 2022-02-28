@@ -2,9 +2,8 @@ import { Router } from 'express';
 import { wrap } from '../utils';
 import { passportAuthMiddleware, validateRequest } from '../middlewares';
 import { RegisterUserRequest, LoginUserRequest } from '../requests';
-import { AuthController, UsersController } from '../controllers';
+import { AuthController } from '../controllers';
 import { JwtTypes } from '../constants';
-import { usersRouter } from './users';
 
 const authRouter = Router();
 
@@ -30,6 +29,18 @@ authRouter.post(
 );
 
 authRouter.get(
+  '/refresh',
+  passportAuthMiddleware(JwtTypes.REFRESH),
+  wrap(async (req, res) => {
+    const [access_token, refresh_token] = await AuthController.refreshTokens(req.user);
+    return res.json({
+      access_token,
+      refresh_token,
+    });
+  }),
+);
+
+authRouter.get(
   '/me',
   passportAuthMiddleware(JwtTypes.ACCESS),
   wrap(async (req, res) => {
@@ -38,13 +49,5 @@ authRouter.get(
     res.status(201).json(user);
   }),
 );
-// authRouter.get(
-//   '/refresh',
-//   passportAuthMiddleware(JwtTypes.REFRESH),
-//   wrap(async (req, res) => {
-//     const tokens = await AuthController.refreshTokens(req.user);
-//     return res.json(tokens);
-//   }),
-// );
 
 export { authRouter };
