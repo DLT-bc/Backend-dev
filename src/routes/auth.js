@@ -44,7 +44,6 @@ authRouter.get(
   '/me',
   passportAuthMiddleware(JwtTypes.ACCESS),
   wrap(async (req, res) => {
-    console.log(req.user);
     const user = await AuthController.getMyStats(req.user);
     res.status(201).json(user);
   }),

@@ -15,4 +15,11 @@ usersRouter.get(
   }),
 );
 
+usersRouter.post(
+  '/update', wrap(async (req, res) => {
+    const users = await UsersController.UpdateUser(req.body);
+    res.status(201).json(users);
+  }),
+);
+
 export { usersRouter };
