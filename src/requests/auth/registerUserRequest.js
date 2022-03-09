@@ -9,7 +9,7 @@ export const RegisterUserRequest = yup.object().shape({
   // companyId: yup.string().uuid(),
   password: yup.string()
     .min(6, ErrorMessages.invalid_password_min_length)
-    .max(128, ErrorMessages.invalid_password_max_length)
+    .max(128, ErrorMessages.invalid_password_min_length)
     .matches(/^[^\s]+$/, ErrorMessages.invalid_password_no_spaces)
     .matches(/[\d.@#$%^&*!]/, ErrorMessages.invalid_password_digit_or_special)
     .required(),

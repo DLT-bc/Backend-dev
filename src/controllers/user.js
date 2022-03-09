@@ -1,7 +1,7 @@
-import { User, Stats } from '../models';
+import { Stats } from '../models';
 
 async function getUsers() {
-  const users = await User.findAll();
+  const users = await Stats.findAll();
   return users.map((user) => user.publish('dates'));
 }
 
