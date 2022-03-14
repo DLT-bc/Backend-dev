@@ -4,6 +4,7 @@ import cors from 'cors';
 import { ErrorHandler } from './middlewares';
 import {
   authRouter,
+  statsRouter,
   usersRouter,
 } from './routes';
 
@@ -20,6 +21,7 @@ app.use(morgan('tiny'));
 // app routing
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/stats', statsRouter);
 
 // health check request
 app.get('/health', (req, res) => {

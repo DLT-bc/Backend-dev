@@ -11,14 +11,7 @@ usersRouter.get(
   passportAuthMiddleware(JwtTypes.ACCESS),
   wrap(async (req, res) => {
     const users = await UsersController.getUsers();
-    res.status(201).json(users);
-  }),
-);
-
-usersRouter.post(
-  '/update', wrap(async (req, res) => {
-    const users = await UsersController.UpdateUser(req.body);
-    res.status(201).json(users);
+    res.json(users);
   }),
 );
 
