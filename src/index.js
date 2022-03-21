@@ -9,9 +9,9 @@ async function start() {
 }
 
 start().then(() => {
-  app.listen(config.PORT, () => {
+  app.listen(process.env.PORT, () => {
     // eslint-disable-next-line no-console
-    console.log(`Server listened on port: ${config.PORT}`);
+    console.log(`Server listened on port: ${process.env.PORT}`);
   });
 }).catch((error) => {
   // eslint-disable-next-line no-console
