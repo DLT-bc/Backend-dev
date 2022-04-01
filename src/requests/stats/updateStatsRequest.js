@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const UpdateStatsRequest = yup.object().required().shape({
+export const UpdateStatsRequest = yup.object().shape({
   cryptocurrency: yup.number(),
   dollars: yup.number(),
   popularity: yup.number(),

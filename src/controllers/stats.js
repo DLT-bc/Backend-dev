@@ -1,13 +1,14 @@
-import { Stats, User } from '../models';
+// import _ from 'lodash';
+import { Stats } from '../models';
 
-async function UpdateUser(userId, options) {
+async function updateStats(userId, options) {
   const {
     cryptocurrency, dollars, popularity, serverLevel, minerLevel, instructionsLevel, passiveLevel, activeLevel,
   } = options;
 
-  const user = await User.findOneOrFail({
-    id: userId,
-  });
+  // const user = await User.findOneOrFail({
+  //   id: userId,
+  // });
 
   const stats = await Stats.update({
     cryptocurrency,
@@ -20,7 +21,7 @@ async function UpdateUser(userId, options) {
     activeLevel,
   }, {
     where: {
-      userId: user.id,
+      userId,
     },
     returning: true,
     plain: true,
@@ -28,6 +29,32 @@ async function UpdateUser(userId, options) {
   return stats[1].dataValues;
 }
 
+// Другой вариант обновления значений в таблице
+
+// async function UpdateUser1(userId, options) {
+//   const {
+//     cryptocurrency, dollars, popularity, serverLevel, minerLevel, instructionsLevel, passiveLevel, activeLevel,
+//   } = options;
+//
+//   const stats = await Stats.findOneOrFail({ userId });
+//
+//   const values = _.pickBy({
+//     cryptocurrency,
+//     dollars,
+//     popularity,
+//     serverLevel,
+//     minerLevel,
+//     instructionsLevel,
+//     passiveLevel,
+//     activeLevel,
+//   });
+//
+//   stats.set(values);
+//   await stats.save();
+//
+//   return stats.publish(['refs', 'dates']);
+// }
+
 export {
-  UpdateUser,
+  updateStats,
 };

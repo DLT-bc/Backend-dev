@@ -12,7 +12,7 @@ statsRouter.patch(
   passportAuthMiddleware(JwtTypes.ACCESS),
   validateRequest(UpdateStatsRequest),
   wrap(async (req, res) => {
-    const users = await StatsController.UpdateUser(req.user.id, req.body);
+    const users = await StatsController.updateStats(req.user.id, req.body);
     res.json(users);
   }),
 );
