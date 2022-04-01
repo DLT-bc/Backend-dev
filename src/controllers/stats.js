@@ -3,7 +3,7 @@ import { Stats } from '../models';
 
 async function updateStats(userId, options) {
   const {
-    cryptocurrency, dollars, popularity, serverLevel, minerLevel, instructionsLevel, passiveLevel, activeLevel,
+    cryptocurrency, dollars, popularity, serverLevel, minerLevel, instructionsLevel,
   } = options;
 
   // const user = await User.findOneOrFail({
@@ -17,8 +17,6 @@ async function updateStats(userId, options) {
     serverLevel,
     minerLevel,
     instructionsLevel,
-    passiveLevel,
-    activeLevel,
   }, {
     where: {
       userId,

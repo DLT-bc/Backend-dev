@@ -28,10 +28,7 @@ async function registerUser({ email, login, password }) {
     mainPcLevel: 1,
     serverLevel: 0,
     minerLevel: 0,
-    instructionsLevel: 0,
-    passiveLevel: 0,
-    activeLevel: 0,
-
+    instructionsLevel: 1,
   });
 
   return user.publish('dates');

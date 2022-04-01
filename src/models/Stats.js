@@ -36,12 +36,12 @@ export default class Stats extends BaseModel {
     instructionsLevel: {
       type: DataTypes.INTEGER,
     },
-    passiveLevel: {
-      type: DataTypes.INTEGER,
-    },
-    activeLevel: {
-      type: DataTypes.INTEGER,
-    },
+    // passiveLevel: {
+    //   type: DataTypes.INTEGER,
+    // },
+    // activeLevel: {
+    //   type: DataTypes.INTEGER,
+    // },
   }
 
   static Settings = {

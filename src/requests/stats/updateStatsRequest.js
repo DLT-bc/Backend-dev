@@ -7,6 +7,4 @@ export const UpdateStatsRequest = yup.object().shape({
   serverLevel: yup.number(),
   minerLevel: yup.number(),
   instructionsLevel: yup.number(),
-  passiveLevel: yup.number(),
-  activeLevel: yup.number(),
 });
