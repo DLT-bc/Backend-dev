@@ -7,7 +7,7 @@ import Stats from './Stats';
 const {
   database, username, password, ...configs
 } = dbConfig;
-const sequelize = new Sequelize(database, username, password, configs);
+const sequelize = new Sequelize(process.env.DATABASE_URL, configs);
 
 // initialize models
 User.initialize(sequelize);

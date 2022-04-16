@@ -5,6 +5,12 @@ export const dbConfig = {
   host: process.env.PGHOST || 'postgres',
   port: parseInt(process.env.PGPORT || 5432, 10),
   dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  },
   logging: false,
 };
 
